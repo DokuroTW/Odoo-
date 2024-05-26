@@ -1,0 +1,33 @@
+<odoo>
+    <data>
+        <record id="inherit_bulletin_board_record_view_from" model="ir.ui.view">
+            <field name="name">edit_button</field>
+            <field name="model">bulletin.board.record</field>
+            <field name="inherit_id" ref="announcement.bulletin_board_record_view_from"/>
+            <field name="arch" type="xml">
+                <xpath expr="/form" position="attributes">
+                    <attribute name="create" groups="announcement.bulletin_board_category_user">0</attribute>
+                    <attribute name="delete" groups="announcement.bulletin_board_category_user">0</attribute>
+                </xpath>
+            </field>
+        </record>
+        <record id="inherit_bulletin_board_record_view_tree" model="ir.ui.view">
+            <field name="name">edit_button</field>
+            <field name="model">bulletin.board.record</field>
+            <field name="inherit_id" ref="announcement.bulletin_board_record_view_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="/tree" position="attributes">
+                    <attribute name="delete" groups="announcement.bulletin_board_category_user">0</attribute>
+                </xpath>
+                <xpath expr="/tree" position="inside">
+                    <button name="edit" type="object" string="編輯公告" class="btn-primary" icon="fa-id-card-o"
+                    attrs="{'invisible': [('is_myself', '!=', True)]}" groups="announcement.bulletin_board_category_user"/>
+                    <button name="delelte_check" type="object" string="刪除公告" class="btn-primary" icon="fa-times"
+                    attrs="{'invisible': [('is_myself', '!=', True)]}" groups="announcement.bulletin_board_category_user"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
+
+

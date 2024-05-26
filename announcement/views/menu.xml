@@ -1,0 +1,10 @@
+<odoo>
+    <data>
+        <menuitem id="menu_bulletin_board_record" name="佈告欄" action="bulletin_board_record_action" web_icon="announcement,static/description/icon.png" sequence="1"/>
+            <menuitem id="menu_bulletin_board_type_manager" name="公告類別管理" parent="menu_bulletin_board_record" groups="bulletin_board_category_manager" sequence="1"/>
+                <menuitem id="menu_bulletin_board_type" name="公告類別" action="bulletin_board_type_action"
+                          parent="menu_bulletin_board_type_manager" groups="bulletin_board_category_manager" sequence="1"/>
+                <menuitem id="menu_bulletin_board_type_child" name="公告子類別" action="bulletin_board_type_child_action"
+                          parent="menu_bulletin_board_type_manager" groups="bulletin_board_category_manager" sequence="2"/>
+    </data>
+</odoo>

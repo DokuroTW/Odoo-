@@ -1,0 +1,37 @@
+<odoo>
+    <data>
+        <record id="bulletin_board_type_view_tree" model="ir.ui.view">
+            <field name="name">bulletin.board.type.view.tree</field>
+            <field name="model">bulletin.board.type</field>
+            <field name="arch" type="xml">
+                <tree string="公告類別" editable="bottom">
+                    <field name="name" />
+                    <field name="child_ids" widget="many2many_tags"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="bulletin_board_type_action" model="ir.actions.act_window">
+            <field name="name">公告類別</field>
+            <field name="res_model">bulletin.board.type</field>
+            <field name="view_mode">tree</field>
+        </record>
+
+        <record id="bulletin_board_type_child_view_tree" model="ir.ui.view">
+            <field name="name">bulletin.board.type.child.view.tree</field>
+            <field name="model">bulletin.board.type.child</field>
+            <field name="arch" type="xml">
+                <tree string="公告類別" editable="bottom">
+                    <field name="name" />
+                    <field name="parent_id" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="bulletin_board_type_child_action" model="ir.actions.act_window">
+            <field name="name">公告子類別</field>
+            <field name="res_model">bulletin.board.type.child</field>
+            <field name="view_mode">tree</field>
+        </record>
+    </data>
+</odoo>

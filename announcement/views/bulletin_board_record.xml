@@ -1,0 +1,112 @@
+<odoo>
+    <data>
+        <record id="bulletin_board_record_view_form_check" model="ir.ui.view">
+            <field name="name">bulletin.board.record.form.check</field>
+            <field name="model">bulletin.board.record</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <div>
+                            <group>
+                                <field name="name" string="主旨"/>
+                            </group>
+                            <group>
+                                <field name="check_out" string="請輸入主旨確認刪除" />
+                            </group>
+                        </div>
+                        <h3 style="background-color:#DEE2E6; color: red;">　※請確認要刪除這個公告，並輸入正確的主旨內容!!</h3>
+                    </sheet>
+                    <footer>
+                        <button name="delete" type="object" string="刪除公告" class="btn-icon btn-danger"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record id="bulletin_board_record_view_tree" model="ir.ui.view">
+            <field name="name">bulletin.board.record.tree</field>
+            <field name="model">bulletin.board.record</field>
+            <field name="arch" type="xml">
+                <tree string="公告"  decoration-bf="top == True">
+                    <field name="top" invisible="1"/>
+                    <field name="is_myself"  invisible='1'/>
+                    <field name="check_out"  invisible='1'/>
+                    <field name="type" widget="many2many_tags" options="{'color_field': 'color', 'field_bg_color_expression': '#FFDDDD:top == True'}"/>
+                    <field name="name" options="{'field_bg_color_expression': '#FFDDDD:top == True'}"/>
+                    <field name="start_date" options="{'field_bg_color_expression': '#FFDDDD:top == True'}"/>
+                    <field name="recorder" options="{'field_bg_color_expression': '#FFDDDD:top == True'}" widget="many2one_avatar_user"/>
+                    <button name="edit" type="object" string="編輯公告" class="btn-primary" icon="fa-id-card-o"
+                    groups="announcement.bulletin_board_category_manager" />
+                    <button name="delelte_check" type="object" string="刪除公告" class="btn-primary" icon="fa-times"
+                    groups="announcement.bulletin_board_category_manager" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="bulletin_board_record_view_from" model="ir.ui.view">
+            <field name="name">bulletin.board.record.from</field>
+            <field name="model">bulletin.board.record</field>
+            <field name="arch" type="xml">
+                <form string="公告">
+                    <sheet>
+                        <field name="is_type_child" invisible="1"/>
+                        <group>
+                            <field name="name" />
+                        </group>
+                        <group>
+                            <group >
+                                <field name="type" widget="many2many_tags" options="{'color_field': 'color','no_edit': True, 'no_create': True, 'no_open': True, 'no_create_edit': True}" placeholder="Tags" />
+                                <field name="child_type" attrs="{'invisible': [('is_type_child', '=', False)]}" options="{'no_create': True, 'no_open': True, 'no_create_edit': True}"/>
+                                <field name="start_date" readonly="1"/>
+                                <field name="other" widget="many2many_binary"/>
+                                <field name="viewer_ids" widget="many2many_tags"/>
+                            </group>
+                            <group >
+                                <field name="recorder" readonly="1"/>
+                                <field name="top"/>
+                                <field name="check_out"  invisible='1'/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page name="content" string="內容">
+                                <field name="content" widget="html"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+<!--                    <div class="oe_chatter">-->
+<!--                        <field name="message_follower_ids"-->
+<!--                               widget="mail_followers"/>-->
+<!--                        <field name="message_ids" widget="mail_thread"/>-->
+<!--                    </div>-->
+                </form>
+            </field>
+        </record>
+
+        <record id="bulletin_board_record_view_search" model="ir.ui.view">
+            <field name="name">bulletin.board.record.search</field>
+            <field name="model">bulletin.board.record</field>
+            <field name="arch" type="xml">
+                <search string="搜索公告">
+                    <field name="name"/>
+                    <field name="recorder"/>
+                    <field name="type"/>
+                    <field name="child_type"/>
+                    <searchpanel>
+                        <field name="type" icon="fa-bookmark" select="multi"/>
+                        <field name="recorder" icon="fa fa-users" select="multi" enable_counters="1"/>
+                    </searchpanel>
+                </search>
+            </field>
+        </record>
+
+        <record id="bulletin_board_record_action" model="ir.actions.act_window">
+            <field name="name">佈告欄</field>
+            <field name="res_model">bulletin.board.record</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="bulletin_board_record_view_search"/>
+            <field name="view_ids"
+                   eval="[(5, 0, 0),
+                          (0, 0, {'view_mode': 'tree', 'view_id': ref('bulletin_board_record_view_tree')}),
+                          (0, 0, {'view_mode': 'form', 'view_id': ref('bulletin_board_record_view_from')})]"/>
+        </record>
+    </data>
+</odoo>

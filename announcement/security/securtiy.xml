@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <record id="bulletin_board_category" model="ir.module.category">
+            <field name="name">佈告欄類別</field>
+        </record>
+
+        <record id="bulletin_board_category_user" model="res.groups">
+            <field name="name">佈告欄一般使用者</field>
+            <field name="category_id" ref="announcement.bulletin_board_category"/>
+            <field name="implied_ids" eval="[(4,ref('base.group_user'))]"/>
+        </record>
+
+        <record id="bulletin_board_category_manager" model="res.groups">
+            <field name="name">佈告欄管理者</field>
+            <field name="category_id" ref="announcement.bulletin_board_category"/>
+            <field name="implied_ids" eval="[(4,ref('announcement.bulletin_board_category_user'))]"/>
+            <field name="implied_ids" eval="[(4,ref('base.user_root')),(4,ref('base.user_admin'))]"/>
+        </record>
+<!--        <data noupdate="0">-->
+<!--            <record id="rule_bulletin_board_user_cr" model="ir.rule">-->
+<!--                <field name="name">佈告欄一般使用者CR(全)</field>-->
+<!--                <field name="model_id" ref="model_bulletin_board_record"/>-->
+<!--                <field name="domain_force">[('is_myself', '!=', True)]</field>-->
+<!--                <field name="perm_read">1</field>-->
+<!--                <field name="perm_write">0</field>-->
+<!--                <field name="perm_create">1</field>-->
+<!--                <field name="perm_unlink">0</field>-->
+<!--                <field name="groups" eval="[(4, ref('announcement.bulletin_board_category_user'))]"/>-->
+<!--            </record>-->
+<!--        </data>-->
+</odoo>
